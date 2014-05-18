@@ -84,6 +84,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libaudioamp
 
+PRODUCT_PACKAGES += \
+    EasyAccessService
+
 # Audio configuration
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
