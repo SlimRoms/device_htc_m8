@@ -10,11 +10,6 @@
     "branch":      "kk4.4"
   },
   {
-    "repository": "SlimRoms/proprietary_vendor_htc",
-    "target_path": "vendor/htc",
-    "branch":      "kk4.4"
-  },
-  {
     "repository":  "SlimRoms/hardware_qcom_audio-caf",
     "target_path": "hardware/qcom/audio-caf",
     "branch":      "kk4.4"
