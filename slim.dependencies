@@ -15,18 +15,18 @@
     "branch":      "lp5.0"
   },
   {
-    "repository": "SlimRoms/android_hardware_qcom_audio",
-    "target_path": "hardware/qcom/audio-caf/default"
+    "repository": "SlimRoms/hardware_qcom_audio-caf",
+    "target_path": "hardware/qcom/audio-caf/default",
     "branch": "lp5.0-caf-8974"
   },
   {
-    "repository": "SlimRoms/android_hardware_qcom_display",
-    "target_path": "hardware/qcom/display-caf/msm8974"
+    "repository": "SlimRoms/hardware_qcom_display-caf",
+    "target_path": "hardware/qcom/display-caf/msm8974",
     "branch": "lp5.0-caf-8974"
   },
   {
-    "repository": "SlimRoms/android_hardware_qcom_media",
-    "target_path": "hardware/qcom/media-caf/msm8974"
+    "repository": "SlimRoms/hardware_qcom_media-caf",
+    "target_path": "hardware/qcom/media-caf/msm8974",
     "branch": "lp5.0-caf-8974"
   }
 ]
