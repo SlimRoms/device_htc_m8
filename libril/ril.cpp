@@ -279,9 +279,9 @@ static void dispatchSimAuthentication(Parcel &p, RequestInfo *pRI);
 static void dispatchDataProfile(Parcel &p, RequestInfo *pRI);
 static int responseInts(Parcel &p, void *response, size_t responselen);
 static int responseStrings(Parcel &p, void *response, size_t responselen);
-static int responseString(Parcel &p, void *response, size_t responselen);
-static int responseStrings(Parcel &p, void *response, size_t responselen, bool network_search);
 static int responseStringsNetworks(Parcel &p, void *response, size_t responselen);
+static int responseStrings(Parcel &p, void *response, size_t responselen, bool network_search);
+static int responseString(Parcel &p, void *response, size_t responselen);
 static int responseVoid(Parcel &p, void *response, size_t responselen);
 static int responseCallList(Parcel &p, void *response, size_t responselen);
 static int responseSMS(Parcel &p, void *response, size_t responselen);
@@ -1988,7 +1988,7 @@ sendResponseRaw (const void *data, size_t dataSize, RIL_SOCKET_ID socket_id) {
     uint32_t header;
     pthread_mutex_t * writeMutexHook = &s_writeMutex;
 
-    RLOGE("Send Response to %s", rilSocketIdToString(socket_id));
+    RLOGV("Send Response to %s", rilSocketIdToString(socket_id));
 
 #if (SIM_COUNT >= 2)
     if (socket_id == RIL_SOCKET_2) {
@@ -2120,7 +2120,7 @@ static int responseStrings(Parcel &p, void *response, size_t responselen, bool n
 #ifdef RIL_FIVE_SEARCH_RESPONSES
         if (network_search == true) {
             // we only want four entries for each network
-             p.writeInt32 (numStrings - (numStrings / 5));
+            p.writeInt32 (numStrings - (numStrings / 5));
         } else {
             p.writeInt32 (numStrings);
         }
@@ -2390,7 +2390,9 @@ static int responseDataCallList(Parcel &p, void *response, size_t responselen)
         int i;
         for (i = 0; i < num; i++) {
             p.writeInt32((int)p_cur[i].status);
+#ifndef HCRADIO
             p.writeInt32(p_cur[i].suggestedRetryTime);
+#endif
             p.writeInt32(p_cur[i].cid);
             p.writeInt32(p_cur[i].active);
             writeStringToParcel(p, p_cur[i].type);
@@ -2604,10 +2606,11 @@ static int responseCdmaERIInfo(Parcel &p,
      *
      * if (p.dataAvail() > 0)
      *      localCdmaERIInfo.roaming_type = p.readInt();
+     *
      * return localCdmaERIInfo;
      * }
      */
-    return 0;
+     return 0;
 }
 
 static int responseCdmaInformationRecords(Parcel &p,
@@ -4451,24 +4454,24 @@ void RIL_onUnsolicitedResponse(int unsolResponse, void *data,
         htc_base--;
 #endif
         switch (unsolResponse) {
-            case RIL_UNSOL_ENTER_LPM: unsolResponseIndex = htc_base + 0; break;
-            case RIL_UNSOL_CDMA_3G_INDICATOR: unsolResponseIndex = htc_base + 1; break;
-            case RIL_UNSOL_CDMA_ENHANCE_ROAMING_INDICATOR: unsolResponseIndex = htc_base + 2; break;
-            case RIL_UNSOL_CDMA_NETWORK_BASE_PLUSCODE_DIAL: unsolResponseIndex = htc_base + 3; break;
-            case RIL_UNSOL_RESPONSE_PHONE_MODE_CHANGE: unsolResponseIndex = htc_base + 4; break;
-            case RIL_UNSOL_RESPONSE_VOICE_RADIO_TECH_CHANGED: unsolResponseIndex = htc_base + 5; break;
-            case RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED_HTC: unsolResponseIndex = htc_base + 6; break;
-            case RIL_UNSOL_RESPONSE_DATA_NETWORK_STATE_CHANGED_M7:
-            case RIL_UNSOL_RESPONSE_DATA_NETWORK_STATE_CHANGED: unsolResponseIndex = htc_base + 7; break;
-            case RIL_UNSOL_RESPONSE_PHONE_MODE_CHANGE_M7:
-                // remap 4802 to 2
-                RLOGD("m7 supported unsolicited response code %d", unsolResponse);
-                unsolResponse = RIL_UNSOL_RESPONSE_VOICE_NETWORK_STATE_CHANGED;
-                unsolResponseIndex = 2;
-                break;
-            default:
-                RLOGE("unsupported unsolicited response code %d", unsolResponse);
+          case RIL_UNSOL_ENTER_LPM: unsolResponseIndex = htc_base + 0; break;
+          case RIL_UNSOL_CDMA_3G_INDICATOR: unsolResponseIndex = htc_base + 1; break;
+          case RIL_UNSOL_CDMA_ENHANCE_ROAMING_INDICATOR: unsolResponseIndex = htc_base + 2; break;
+          case RIL_UNSOL_CDMA_NETWORK_BASE_PLUSCODE_DIAL: unsolResponseIndex = htc_base + 3; break;
+          case RIL_UNSOL_RESPONSE_PHONE_MODE_CHANGE: unsolResponseIndex = htc_base + 4; break;
+          case RIL_UNSOL_RESPONSE_VOICE_RADIO_TECH_CHANGED: unsolResponseIndex = htc_base + 5; break;
+          case RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED_HTC: unsolResponseIndex = htc_base + 6; break;
+          case RIL_UNSOL_RESPONSE_DATA_NETWORK_STATE_CHANGED_M7:
+          case RIL_UNSOL_RESPONSE_DATA_NETWORK_STATE_CHANGED: unsolResponseIndex = htc_base + 7; break;
+          case RIL_UNSOL_RESPONSE_PHONE_MODE_CHANGE_M7:
+            // remap 4802 to 2
+            RLOGD("m7 supported unsolicited response code %d", unsolResponse);
+            unsolResponse = RIL_UNSOL_RESPONSE_VOICE_NETWORK_STATE_CHANGED;
+            unsolResponseIndex = 2;
+            break;
+          default: RLOGE("unsupported unsolicited response code %d", unsolResponse); return;
         }
+
     }
 
     // Grab a wake lock if needed for this reponse,
