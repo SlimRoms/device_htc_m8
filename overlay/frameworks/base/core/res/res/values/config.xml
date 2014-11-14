@@ -123,10 +123,10 @@
     <integer name="config_defaultNotificationLedOff">9000</integer>
 
     <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
-    <bool name="config_intrusiveBatteryLed">true</bool>
+    <!-- bool name="config_intrusiveBatteryLed">true</bool -->
 
     <!-- Does the battery LED support multiple colors? Used to decide if the user can change the colors -->
-    <bool name="config_multiColorBatteryLed">true</bool>
+    <!-- bool name="config_multiColorBatteryLed">true</bool -->
 
     <!-- reference volume index for music stream to limit headphone volume and display warning -->
     <integer name="config_safe_media_volume_index">8</integer>
@@ -258,8 +258,8 @@
              8 - Assistant (search)
             16 - App switch
          For example, a device with Home, Back and Menu keys would set this
-         config to 7. -->
-    <integer name="config_deviceHardwareKeys">0</integer>
+         config to 7.
+    <integer name="config_deviceHardwareKeys">0</integer -->
 
     <!-- Is the device capable of hot swapping an UICC Card -->
     <bool name="config_hotswapCapable">true</bool>
@@ -271,6 +271,8 @@
          movement threshold where scrolling should begin. -->
     <dimen name="config_viewConfigurationTouchSlop">4dp</dimen>
 
+    <!--
     <bool name="config_proximityCheckOnWake">true</bool>
     <integer name="config_proximityCheckTimeout">400</integer>
+    -->
 </resources>
