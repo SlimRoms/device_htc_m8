@@ -1,8 +1,0 @@
-allow ueventd vfat:dir search;
-allow ueventd vfat:file { read getattr open };
-allow ueventd camera_socket:chr_file { create setattr };
-allow ueventd rmt_storage:blk_file { create setattr };
-allow ueventd tee:blk_file { create setattr };
-allow ueventd tmpfs:filesystem { associate };
-allow ueventd tee:filesystem { associate };
-allow ueventd rmt_storage:filesystem { associate };

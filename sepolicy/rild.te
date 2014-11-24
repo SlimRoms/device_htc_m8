@@ -1,1 +1,0 @@
-allow rild init:unix_stream_socket { read write listen accept getopt };

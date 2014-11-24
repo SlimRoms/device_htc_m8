@@ -137,32 +137,6 @@ TARGET_USES_WCNSS_CTRL := true
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WIFI_DRIVER_FW_PATH_AP := "ap"
 
-
-# SELinux
-BOARD_SEPOLICY_DIRS += \
-    device/htc/m8/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    cir_fw_update.te \
-    device.te \
-    file_contexts \
-    hcheck.te \
-    init_shell.te \
-    init.te \
-    mediaserver.te \
-    mm-qcamerad.te \
-    mpdecision.te \
-    rild.te \
-    rmt_storage.te \
-    su_daemon.te \
-    sysinit.te \
-    tee.te \
-    thermal-engine.te \
-    time_daemon.te \
-    ueventd.te \
-    vold.te \
-    wcnss-service.te
-
 # Webkit
 ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
