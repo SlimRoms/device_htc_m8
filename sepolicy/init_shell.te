@@ -1,1 +1,0 @@
-allow init_shell self:rawip_socket { getopt create setopt };

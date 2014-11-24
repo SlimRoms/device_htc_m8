@@ -1,3 +1,0 @@
-type modem_block_device, dev_type;
-type ssd_block_device, dev_type;
-type userdata_block_device, dev_type;
