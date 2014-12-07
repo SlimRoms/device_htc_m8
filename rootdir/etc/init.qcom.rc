@@ -80,6 +80,10 @@ on init
     chown nfc nfc /sys/class/NFC_sensor/comn/nxp_uicc_swp
     chmod 0664 /sys/class/NFC_sensor/comn/nxp_uicc_swp
 
+# Vibrator permission
+    chown system /sys/devices/virtual/timed_output/vibrator/voltage_level
+    restorecon /sys/devices/virtual/timed_output/vibrator/voltage_level
+
 on fs
     mkdir /devlog 0700 root root
     mkdir /fataldevlog 0700 root root
@@ -178,6 +182,14 @@ on post-fs-data
 
     #Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
+
+    # Hardware tunables
+    chown root system /sys/devices/platform/kcal_ctrl.0/kcal
+    chown root system /sys/devices/platform/kcal_ctrl.0/kcal_ctrl
+    chmod 0664 /sys/devices/platform/kcal_ctrl.0/kcal
+    chmod 0664 /sys/devices/platform/kcal_ctrl.0/kcal_ctrl
+    restorecon /sys/devices/platform/kcal_ctrl.0/kcal
+    restorecon /sys/devices/platform/kcal_ctrl.0/kcal_ctrl
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
