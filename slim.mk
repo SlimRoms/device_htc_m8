@@ -20,9 +20,6 @@ $(call inherit-product, device/htc/m8/device.mk)
 # Inherit some common Slim stuff.
 $(call inherit-product, vendor/slim/config/common_full_phone.mk)
 
-# Enhanced NFC
-$(call inherit-product, vendor/slim/config/nfc_enhanced.mk)
-
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := slim_m8
 PRODUCT_DEVICE := m8
