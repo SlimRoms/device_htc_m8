@@ -14,10 +14,6 @@
 # limitations under the License.
 #
 
-
-# Enhanced NFC
-$(call inherit-product, vendor/slim/config/nfc_enhanced.mk)
-
 # Inherit from m8 device
 $(call inherit-product, device/htc/m8/device.mk)
 
